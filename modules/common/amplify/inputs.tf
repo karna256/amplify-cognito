@@ -20,12 +20,23 @@ variable "branch_name" {
   default = "main"
 }
 
-variable "pool_id" {
-    description = "Pool id"
+variable "user_pool_id" {
+    description = "User Pool id"
     type        = string
 }
 
-variable "pool_client_id" {
-    description = "Pool client id"
+variable "user_pool_client_id" {
+    description = "User Pool client id"
     type        = string
+}
+
+variable "identity_pool_id" {
+    description = "Identity Pool id"
+    type        = string
+}
+
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default = "us-east-1"
 }

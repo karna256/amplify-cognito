@@ -33,16 +33,14 @@ resource "aws_amplify_branch" "this" {
   branch_name = var.branch_name
   framework = "React"
   stage = "DEVELOPMENT"
+  enable_auto_build = true
   tags = {
-    name = var.branch_name
+    Name = var.branch_name
   }
   environment_variables = {
-    USER_POOL_ID = var.pool_id
-    USER_POOL_CLIENT_ID = var.pool_client_id
+    VITE_APP_USER_POOL_ID = var.user_pool_id
+    VITE_APP_USER_POOL_CLIENT_ID = var.user_pool_client_id
+    VITE_APP_IDENTITY_POOL_ID = var.identity_pool_id
+    VITE_APP_REGION = var.aws_region
   }
-}
-
-resource "aws_amplify_backend_environment" "this" {
-  app_id      = aws_amplify_app.this.id
-  environment_name = "dev"
 }

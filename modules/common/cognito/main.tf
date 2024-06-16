@@ -8,14 +8,25 @@ resource "aws_cognito_user_pool" "this" {
     require_symbols   = true
     require_uppercase = true
   }
+  mfa_configuration          = "OFF"
   tags = {
     Name = "ankit_user_pool"
   }
 }
 
 resource "aws_cognito_user_pool_client" "this" {
-  name            = "name_user_pool_client"
+  name            = "ankit_react_client"
   user_pool_id    = aws_cognito_user_pool.this.id
-  generate_secret = true
+  generate_secret = false
+}
+
+resource "aws_cognito_identity_pool" "this" {
+  identity_pool_name = "ankit_identity_pool"
+  allow_unauthenticated_identities = false
+    cognito_identity_providers {
+        client_id               = aws_cognito_user_pool_client.this.id
+        provider_name           = aws_cognito_user_pool.this.endpoint
+        server_side_token_check = false
+    }
 }
 
